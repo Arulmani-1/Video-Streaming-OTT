@@ -36,7 +36,7 @@
                     <p>Already have an account? <a href="login.html" class="highlight-link">Log In</a></p>
                 </div>
 
-                <form class="login-form" onsubmit="event.preventDefault(); const role = document.getElementById('signup-role-select').value; if(role === 'admin') window.location.href='admin_dashboard.html'; else window.location.href='user_dashboard.html';">
+                <form class="login-form" onsubmit="event.preventDefault(); const role = document.getElementById('signup-role-select').value; const name = document.getElementById('signup-name').value; const email = document.getElementById('signup-email').value; localStorage.setItem('registeredName', name); localStorage.setItem('registeredEmail', email); localStorage.setItem('registeredRole', role); window.location.href='login.html';">
                     
                     <div class="form-group">
                         <label class="form-label">Sign up as</label>
@@ -52,14 +52,14 @@
                     <div class="form-group">
                         <label class="form-label">Name</label>
                         <div class="input-wrapper">
-                            <input type="text" class="form-input" placeholder="Enter Your Name" required>
+                            <input type="text" id="signup-name" class="form-input" placeholder="Enter Your Name" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Email</label>
                         <div class="input-wrapper">
-                            <input type="email" class="form-input" placeholder="Enter Your Email" required>
+                            <input type="email" id="signup-email" class="form-input" placeholder="Enter Your Email" required>
                         </div>
                     </div>
 
@@ -95,10 +95,10 @@
                 </div>
 
                 <div class="social-login-group">
-                    <button type="button" class="btn-social-login">
+                    <button type="button" class="btn-social-login" onclick="window.location.href='404.html'">
                         <i class="fa-brands fa-facebook"></i> Facebook
                     </button>
-                    <button type="button" class="btn-social-login">
+                    <button type="button" class="btn-social-login" onclick="window.location.href='404.html'">
                         <i class="fa-brands fa-google"></i> Google
                     </button>
                 </div>
