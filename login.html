@@ -36,7 +36,18 @@
                     <p>Don't have an account? <a href="signup.html" class="highlight-link">Sign Up</a></p>
                 </div>
 
-                <form class="login-form" onsubmit="event.preventDefault(); const role = document.getElementById('role-select').value; const email = document.getElementById('login-email').value; localStorage.setItem('userEmail', email); if(role === 'admin') window.location.href='admin_dashboard.html'; else window.location.href='user_dashboard.html';">
+                <form class="login-form" onsubmit="event.preventDefault(); 
+                    const role = document.getElementById('role-select').value; 
+                    const email = document.getElementById('login-email').value; 
+                    const regEmail = localStorage.getItem('registeredEmail');
+                    let currentName = role === 'admin' ? 'Admin' : 'User';
+                    if(email === regEmail && localStorage.getItem('registeredName')) {
+                        currentName = localStorage.getItem('registeredName');
+                    }
+                    localStorage.setItem('currentName', currentName);
+                    localStorage.setItem('userEmail', email); 
+                    if(role === 'admin') window.location.href='admin_dashboard.html'; 
+                    else window.location.href='user_dashboard.html';">
                     
                     <div class="form-group">
                         <label class="form-label">Login as</label>

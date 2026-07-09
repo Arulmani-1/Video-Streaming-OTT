@@ -117,7 +117,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const email = localStorage.getItem('userEmail') || 'user@example.com';
-            const name = localStorage.getItem('registeredName') || 'User';
+            const name = localStorage.getItem('currentName') || 'User';
             document.getElementById('display-email').textContent = email;
             const welcomeHeader = document.querySelector('.topbar-welcome h2');
             if (welcomeHeader) {
