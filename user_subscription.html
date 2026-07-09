@@ -18,7 +18,7 @@
         <div class="sidebar-overlay" id="sidebar-overlay"></div>
         <!-- Sidebar -->
         <aside class="dashboard-sidebar slide-up">
-            <div class="sidebar-brand">
+            <div class="sidebar-brand" style="cursor: pointer;" onclick="window.location.href='user_dashboard.html'">
                 <img src="images/logo.webp" alt="STACKLY" style="height: 55px; width: auto; object-fit: contain;">
             </div>
             <ul class="sidebar-menu">
@@ -67,7 +67,7 @@
                             <li><i class="fa-solid fa-check"></i> Unlimited downloads</li>
                         </ul>
                         
-                        <button class="btn-danger" style="width: 100%;">Cancel Subscription</button>
+                        <button class="btn-danger" style="width: 100%;" onclick="window.location.href='404.html'">Cancel Subscription</button>
                     </div>
                     
                     <div class="sub-card">
@@ -82,7 +82,7 @@
                             <li style="opacity: 0.5;"><i class="fa-solid fa-xmark" style="color: #ef4444;"></i> No downloads</li>
                         </ul>
                         
-                        <button class="btn-save" style="width: 100%;">Downgrade to Standard</button>
+                        <button class="btn-save" style="width: 100%;" onclick="window.location.href='404.html'">Downgrade to Standard</button>
                     </div>
                 </div>
             </section>
@@ -91,7 +91,12 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const email = localStorage.getItem('userEmail') || 'user@example.com';
+            const name = localStorage.getItem('currentName') || 'User';
             document.getElementById('display-email').textContent = email;
+            const welcomeHeader = document.querySelector('.topbar-welcome h2');
+            if (welcomeHeader) {
+                welcomeHeader.textContent = `Welcome back, ${name}!`;
+            }
         });
     </script>
 
