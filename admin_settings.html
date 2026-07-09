@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/admin_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+<body>
+    <main class="dashboard-container">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar slide-up">
+            <div class="sidebar-brand">
+                <img src="images/logo.webp" alt="STACKLY" style="height: 55px; width: auto; object-fit: contain;">
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="admin_dashboard.html" ><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+                <li><a href="admin_manage_users.html"><i class="fa-solid fa-users"></i> Manage Users</a></li>
+                <li><a href="admin_content_library.html"><i class="fa-solid fa-film"></i> Content Library</a></li>
+                <li><a href="admin_revenue.html"><i class="fa-solid fa-money-bill-trend-up"></i> Revenue</a></li>
+                <li><a href="admin_settings.html" class="active"><i class="fa-solid fa-gear"></i> System Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-main-wrapper">
+            <!-- Dashboard Top Navbar -->
+            <header class="dashboard-topbar">
+                <button class="mobile-sidebar-btn" id="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                <div class="topbar-welcome">
+                    <h2 style="margin: 0; font-size: 1.2rem; font-weight: 600; color: white;">Welcome back, Admin!</h2>
+                </div>
+                <div class="topbar-actions">
+                    <span id="display-email" style="color: white; font-weight: 600;">admin@example.com</span>
+                    <a href="index.html" class="btn-action" style="text-decoration: none; display: flex; align-items: center; gap: 8px;" onclick="localStorage.removeItem('userEmail')">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                    </a>
+                </div>
+            </header>
+
+            <section class="dashboard-content fade-in">
+                <div class="dashboard-header">
+                <h1 class="dashboard-title">System Settings</h1>
+                <p class="dashboard-subtitle">Platform configurations</p>
+            </div>
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <h3>Global Platform Settings</h3>
+                        <div class="form-row">
+                            <div class="form-group-dash">
+                                <label>Platform Name</label>
+                                <input type="text" value="STACKLY STREAM">
+                            </div>
+                            <div class="form-group-dash">
+                                <label>Support Email</label>
+                                <input type="email" value="support@stackly.com">
+                            </div>
+                        </div>
+                        <button class="btn-save" style="margin-top: 10px;" onclick="window.location.href='404.html'">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Global Settings
+                        </button>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Feature Toggles</h3>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <h4>Allow New Registrations</h4>
+                                <p>Enable or disable new user signups.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <h4>Maintenance Mode</h4>
+                                <p>Put the platform in maintenance mode.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section" style="border-color: rgba(239, 68, 68, 0.3);">
+                        <h3 style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);">Danger Zone</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 15px;">Once you delete the platform data, there is no going back. Please be certain.</p>
+                        <button class="btn-danger" style="margin-top: 0;" onclick="window.location.href='404.html'">Factory Reset</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const email = localStorage.getItem('userEmail') || 'admin@example.com';
+            document.getElementById('display-email').textContent = email;
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.dashboard-sidebar');
+            const toggleBtn = document.getElementById('mobile-sidebar-toggle');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if(toggleBtn && sidebar && overlay) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                });
+
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+/* ==================== GLOBAL NAVBAR VARIABLES ==================== */
+:root {
+    --nav-bg: rgba(7, 11, 20, 0.8);
+    --nav-blur: blur(20px);
+    --nav-text: #e2e8f0;
+    --nav-hover: #fff;
+    --accent-glow: #0ea5e9;
+    --accent-purple: #8b5cf6;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== NAVBAR CONTAINER ==================== */
+.premium-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+    z-index: 9999;
+    transition: var(--transition);
+}
+
+.premium-navbar.scrolled {
+    background: rgba(3, 7, 18, 0.95) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 1rem 4%;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+    border-bottom: none;
+}
+
+/* ==================== BRANDING ==================== */
+.nav-brand-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.brand-logo-img {
+    height: 40px; /* Adjust height based on your logo */
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.3));
+    transition: var(--transition);
+}
+
+.brand-logo-img:hover {
+    filter: drop-shadow(0 0 12px rgba(14, 165, 233, 0.7));
+    transform: scale(1.03);
+}
+
+/* ==================== NAVIGATION LINKS ==================== */
+.nav-center {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--nav-text);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.95rem;
+    position: relative;
+    padding: 5px 0;
+    transition: var(--transition);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--nav-hover);
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-glow), var(--accent-purple));
+    transition: var(--transition);
+    border-radius: 2px;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* ==================== ACTIONS (RIGHT) ==================== */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-icon {
+    color: var(--nav-text);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.nav-icon:hover {
+    color: var(--nav-hover);
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+}
+
+.nav-btn {
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.btn-subscribe {
+    background: transparent;
+    color: var(--accent-purple);
+    border: none;
+    box-shadow: none;
+    font-size: 1rem;
+    padding: 0;
+}
+
+.btn-subscribe:hover {
+    color: #a78bfa;
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+.btn-signin {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    backdrop-filter: blur(5px);
+}
+
+.btn-signin:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.4);
+}
+
+.mobile-toggle {
+    display: none;
+    color: white;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+    .nav-center { gap: 1rem; }
+    .nav-link { font-size: 0.85rem; }
+}
+
+@media (max-width: 768px) {
+    .nav-center { display: none; } /* Handled by mobile menu */
+    .btn-subscribe, .btn-signin { display: none; }
+    .mobile-toggle { display: block; }
+}
+/* Mobile Menu Overlay */
+.nav-center.mobile-active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #0f172a; /* Solid dark blue for readability */
+    backdrop-filter: var(--nav-blur);
+    padding: 2rem 4%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    z-index: 999;
+}
+
+@media (max-width: 768px) {
+    .nav-center.mobile-active .nav-link {
+        font-size: 1.1rem;
+        padding: 10px 0;
+        display: block;
+        width: 100%;
+    }
+}
+
+/* ==================== PREMIUM HAMBURGER ==================== */
+.premium-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.premium-hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, #fff, var(--accent-glow));
+    border-radius: 3px;
+    transition: var(--transition);
+    box-shadow: 0 0 5px rgba(14, 165, 233, 0.4);
+}
+
+.premium-hamburger span:nth-child(2) {
+    width: 70%;
+    margin-left: auto;
+}
+
+.mobile-toggle:hover .premium-hamburger span {
+    background: linear-gradient(90deg, var(--accent-glow), var(--accent-purple));
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+}
+
+.mobile-toggle:hover .premium-hamburger span:nth-child(2) {
+    width: 100%;
+}
+.mobile-toggle:hover .premium-hamburger span:nth-child(1) {
+    width: 70%;
+}
+.mobile-toggle:hover .premium-hamburger span:nth-child(3) {
+    width: 70%;
+}
+
+/* Mobile Auth Links (Hidden on Desktop) */
+.mobile-auth-link {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .nav-center.mobile-active .mobile-auth-link {
+        display: block;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+}
+
+
+/* Fix for Desktop View - Perfectly Center the Nav Links */
+@media (min-width: 769px) {
+    .nav-center {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

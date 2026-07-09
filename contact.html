@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+
+    <main class="contact-main">
+        <!-- Contact Header -->
+        <section class="contact-hero fade-in">
+            <h1 class="contact-title">Contact Us</h1>
+            <p class="contact-subtitle">We're here to help you with any questions or issues.</p>
+        </section>
+
+        <!-- Support Cards -->
+        <section class="support-cards-section slide-up">
+            <div class="support-cards">
+                <div class="support-card">
+                    <i class="fa-solid fa-headset support-icon"></i>
+                    <h3>Customer Support</h3>
+                    <p>24/7 assistance for all your billing and streaming issues.</p>
+                    <a href="mailto:support@stackly.com">support@stackly.com</a>
+                </div>
+                <div class="support-card">
+                    <i class="fa-solid fa-handshake support-icon"></i>
+                    <h3>Partnerships</h3>
+                    <p>Interested in partnering with us for content distribution?</p>
+                    <a href="mailto:partners@stackly.com">partners@stackly.com</a>
+                </div>
+                <div class="support-card">
+                    <i class="fa-solid fa-location-dot support-icon"></i>
+                    <h3>Headquarters</h3>
+                    <p>MMR Complex, Periyakollappatty, Chinna Thirupathi, Salem, Tamil Nadu 636008, India</p>
+                    <a href="https://maps.google.com/?q=MMR+Complex,+Periyakollappatty,+Chinna+Thirupathi,+Salem,+Tamil+Nadu+636008,+India"
+                        target="_blank">Get Directions</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form & Map Section -->
+        <section class="contact-content slide-up">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h2>Send a Message</h2>
+                    <form class="contact-form" onsubmit="event.preventDefault(); window.location.href='404.html';">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select class="form-control">
+                                <option>Billing Issue</option>
+                                <option>Technical Support</option>
+                                <option>Content Request</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control" rows="5" placeholder="How can we help you?"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Submit Request</button>
+                    </form>
+                </div>
+
+                <!-- Google Map Iframe -->
+                <div class="map-container">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Stackly,%20MMR%20Complex,%20Periyakollappatty,%20Chinna%20Thirupathi,%20Salem,%20Tamil%20Nadu%20636008,%20India&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                        width="100%" height="100%" style="border:0; border-radius: var(--radius-md);" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadComponents() {
+            try {
+                const navRes = await fetch('navbar.html');
+                if (navRes.ok) document.getElementById('navbar-container').innerHTML = await navRes.text();
+
+                const footRes = await fetch('footer.html');
+                if (footRes.ok) document.getElementById('footer-container').innerHTML = await footRes.text();
+
+                setTimeout(() => {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        if (link.textContent === 'Contact') link.classList.add('active');
+                        else link.classList.remove('active');
+                    });
+                }, 100);
+
+                window.addEventListener('scroll', () => {
+                    const nav = document.querySelector('.premium-navbar');
+                    if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+                });
+
+                // Mobile Menu Toggle
+                setTimeout(() => {
+                    const mobileBtn = document.querySelector('.mobile-toggle');
+                    const navCenter = document.querySelector('.nav-center');
+                    if (mobileBtn && navCenter) {
+                        mobileBtn.addEventListener('click', () => {
+                            navCenter.classList.toggle('mobile-active');
+                        });
+                    }
+
+                    // Active Link Highlight
+                    const currentUrl = window.location.pathname.split('/').pop() || 'index.html';
+                    const navLinks = document.querySelectorAll('.nav-center .nav-link');
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === currentUrl) {
+                            link.classList.add('active');
+                        }
+                    });
+                }, 200);
+            } catch (e) {
+                console.log("Error loading components");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadComponents);
+    </script>
+</body>
+
+</html>

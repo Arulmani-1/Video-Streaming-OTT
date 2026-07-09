@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Series - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/webseries.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+    <main>
+        <!-- Web Series Video Hero -->
+        <section class="webseries-hero fade-in" style="position: relative; height: 60vh; min-height: 400px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; padding-bottom: 2rem;">
+            <video autoplay loop muted playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;" poster="images/hero_bg.webp">
+                <source src="videos/video5.mp4" type="video/mp4">
+            </video>
+            
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(3,7,18,0.2) 0%, rgba(3,7,18,0.6) 60%, var(--bg-primary) 100%); z-index: 1;"></div>
+            
+            <div class="page-header slide-up" style="position: relative; z-index: 2; padding: 0; text-align: center; width: 100%;">
+                <h1 class="page-title">Web Series</h1>
+                <p class="page-subtitle">Exclusive limited series, crime thrillers, and dramas.</p>
+                
+                <div class="filter-bar" style="margin-bottom: 0;">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Trending</button>
+                    <button class="filter-btn">Crime</button>
+                    <button class="filter-btn">Comedy</button>
+                    <button class="filter-btn">Drama</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Sliders Container -->
+        <div id="sliders-container" class="slide-up">
+            <!-- JavaScript will inject sliders here -->
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <!-- Vanilla JS logic -->
+    <script>
+        // 1. Inject Navbar & Footer
+        async function loadComponents() {
+            try {
+                const navRes = await fetch('navbar.html');
+                if(navRes.ok) document.getElementById('navbar-container').innerHTML = await navRes.text();
+                
+                const footRes = await fetch('footer.html');
+                if(footRes.ok) document.getElementById('footer-container').innerHTML = await footRes.text();
+
+                // Make Web Series link active
+                setTimeout(() => {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        if(link.textContent === 'Web Series') link.classList.add('active');
+                        else link.classList.remove('active');
+                    });
+                }, 100);
+
+                                window.addEventListener('scroll', () => {
+                    const nav = document.querySelector('.premium-navbar');
+                    if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+                });
+
+                                    // Mobile Menu Toggle
+                    setTimeout(() => {
+                        const mobileBtn = document.querySelector('.mobile-toggle');
+                        const navCenter = document.querySelector('.nav-center');
+                        if(mobileBtn && navCenter) {
+                            mobileBtn.addEventListener('click', () => {
+                                navCenter.classList.toggle('mobile-active');
+                            });
+                        }
+                        
+                        // Active Link Highlight
+                        const currentUrl = window.location.pathname.split('/').pop() || 'index.html';
+                        const navLinks = document.querySelectorAll('.nav-center .nav-link');
+                        navLinks.forEach(link => {
+                            if(link.getAttribute('href') === currentUrl) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }, 200);
+            } catch (e) {
+                console.log("Error loading components");
+            }
+        }
+
+        // 2. Render Sliders
+        const categories = [
+            "Trending Web Series", "Netflix Originals", "Prime Originals", 
+            "Disney+", "Regional Series", "Crime Series", "Comedy Series", 
+            "Thriller Series", "Drama Series"
+        ];
+        
+        const categoryImages = {
+            "Trending Web Series": ["images/tv1.webp", "images/tv2.webp", "images/tv3.webp", "images/tv4.webp", "images/tv5.webp", "images/tv6.webp", "images/tv7.webp", "images/tv8.webp", "images/tv9.webp", "images/tv10.webp"],
+            "Netflix Originals": ["images/hollywood1.webp", "images/hollywood2.webp", "images/hollywood3.webp", "images/hollywood4.webp", "images/hollywood5.webp", "images/hollywood6.webp", "images/hollywood7.webp", "images/hollywood8.webp", "images/hollywood9.webp", "images/hollywood10.webp"],
+            "Prime Originals": ["images/tv11.webp", "images/tv12.webp", "images/tv13.webp", "images/tv14.webp", "images/tv15.webp", "images/tv16.webp", "images/tv17.webp", "images/tv1.webp", "images/tv2.webp", "images/tv3.webp"],
+            "Disney+": ["images/hollywood10.webp", "images/hollywood9.webp", "images/hollywood8.webp", "images/hollywood7.webp", "images/hollywood6.webp", "images/hollywood5.webp", "images/hollywood4.webp", "images/hollywood3.webp", "images/hollywood2.webp", "images/hollywood1.webp"],
+            "Regional Series": ["images/tamil1.webp", "images/tamil2.webp", "images/tamil3.webp", "images/tamil4.webp", "images/tamil5.webp", "images/tamil6.webp", "images/tamil7.webp", "images/tamil8.webp", "images/tamil9.webp", "images/tamil10.webp"],
+            "Crime Series": ["images/horror1.webp", "images/horror2.webp", "images/horror3.webp", "images/horror4.webp", "images/horror5.webp", "images/horror6.webp", "images/horror7.webp", "images/horror8.webp", "images/horror9.webp", "images/horror.webp"],
+            "Comedy Series": ["images/comedy1.webp", "images/comedy2.webp", "images/comedy3.webp", "images/comedy4.webp", "images/comedy5.webp", "images/comedy6.webp", "images/comedy.webp", "images/tv4.webp", "images/tv5.webp", "images/tv6.webp"],
+            "Thriller Series": ["images/horror9.webp", "images/horror8.webp", "images/horror7.webp", "images/horror6.webp", "images/horror5.webp", "images/horror4.webp", "images/horror3.webp", "images/horror2.webp", "images/horror1.webp", "images/horror.webp"],
+            "Drama Series": ["images/tamil10.webp", "images/tamil9.webp", "images/tamil8.webp", "images/tamil7.webp", "images/tamil6.webp", "images/tamil5.webp", "images/tamil4.webp", "images/tamil3.webp", "images/tamil2.webp", "images/tamil1.webp"]
+        };
+
+        function generateCard(index, catName) {
+            const posters = categoryImages[catName] || categoryImages["Trending Web Series"];
+            const poster = posters[index % posters.length];
+            return `
+                <div class="movie-card extended-card">
+                    <img src="${poster}" alt="Series Poster" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=500'">
+                    
+                    <div class="card-overlay extended-overlay">
+                        <h4 class="card-title">${catName} ${index + 1}</h4>
+                        
+                        <div class="card-meta">
+                            <span class="imdb-rating"><i class="fa-solid fa-star"></i> 8.${index%9}</span>
+                            <span>202${index%6}</span>
+                            <span>Season ${1 + (index%4)}</span>
+                        </div>
+                        
+                        <div class="card-tags">
+                            <span class="card-tag">HD</span>
+                            <span class="card-tag">Series</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <a href="404.html" class="card-btn primary" style="text-decoration: none;"><i class="fa-solid fa-play"></i> Watch</a>
+                            <a href="404.html" class="card-btn secondary" style="text-decoration: none;"><i class="fa-solid fa-film"></i> Trailer</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSliders() {
+            const container = document.getElementById('sliders-container');
+            let html = '';
+            
+            categories.forEach(cat => {
+                let cardsHtml = '';
+                for(let i=0; i<10; i++) cardsHtml += generateCard(i, cat);
+                
+                html += `
+                    <section class="slider-section">
+                        <h2 class="section-title">${cat}</h2>
+                        <div class="slider-wrapper">
+                            <button class="slider-control prev"><i class="fa-solid fa-chevron-left"></i></button>
+                            <div class="slider-track">
+                                ${cardsHtml}
+                            </div>
+                            <button class="slider-control next"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </section>
+                `;
+            });
+            container.innerHTML = html;
+            initSliderControls();
+        }
+
+        function initSliderControls() {
+            document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
+                const track = wrapper.querySelector('.slider-track');
+                const prev = wrapper.querySelector('.prev');
+                const next = wrapper.querySelector('.next');
+                
+                const scrollAmount = 800;
+                
+                next.addEventListener('click', () => {
+                    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                });
+                
+                prev.addEventListener('click', () => {
+                    track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                });
+            });
+        }
+
+        function initFilterButtons() {
+            const btns = document.querySelectorAll('.filter-btn');
+            btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state
+                    btns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filterText = btn.textContent.trim();
+                    
+                    if(filterText === 'All') {
+                        const container = document.getElementById('sliders-container');
+                        const y = container.getBoundingClientRect().top + window.scrollY - 100;
+                        window.scrollTo({top: y, behavior: 'smooth'});
+                        return;
+                    }
+
+                    // Find the matching section
+                    const sections = document.querySelectorAll('.slider-section');
+                    for (let section of sections) {
+                        const title = section.querySelector('.section-title').textContent;
+                        if (title.includes(filterText)) {
+                            // Scroll to section minus 100px for the navbar offset
+                            const y = section.getBoundingClientRect().top + window.scrollY - 100;
+                            window.scrollTo({top: y, behavior: 'smooth'});
+                            break;
+                        }
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadComponents();
+            renderSliders();
+            initFilterButtons();
+        });
+    </script>
+</body>
+</html>

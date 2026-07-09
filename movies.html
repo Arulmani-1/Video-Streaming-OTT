@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/movies.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 80px;">
+                <!-- Movies Hero Slider -->
+        <section class="movies-hero fade-in">
+            <video autoplay loop muted playsinline class="hero-video" id="category-trailer">
+                <source src="videos/video1.mp4" type="video/mp4">
+            </video>
+            <div class="hero-gradient"></div>
+        </section>
+
+        <!-- Category Filters -->
+        <section class="movies-filters slide-up">
+            <h1 class="movies-title">Movies</h1>
+            <p class="movies-subtitle">Blockbusters, award-winning indie films, and everything in between.</p>
+            <div class="filter-bar">
+                <button class="filter-btn active" data-video="videos/video1.mp4">All</button>
+                <button class="filter-btn" data-video="videos/video2.mp4">Hollywood</button>
+                <button class="filter-btn" data-video="videos/video3.mp4">Bollywood</button>
+                <button class="filter-btn" data-video="videos/action.mp4">Action</button>
+                <button class="filter-btn" data-video="videos/video4.mp4">Comedy</button>
+                <button class="filter-btn" data-video="videos/video5.mp4">Horror</button>
+            </div>
+        </section>
+
+        <!-- Dynamic Sliders Container -->
+        <div id="sliders-container" class="slide-up">
+            <!-- JavaScript will inject sliders here -->
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <!-- Vanilla JS logic -->
+    <script>
+        // 1. Inject Navbar & Footer
+        async function loadComponents() {
+            try {
+                const navRes = await fetch('navbar.html');
+                if(navRes.ok) document.getElementById('navbar-container').innerHTML = await navRes.text();
+                
+                const footRes = await fetch('footer.html');
+                if(footRes.ok) document.getElementById('footer-container').innerHTML = await footRes.text();
+
+                // Make Movies link active
+                setTimeout(() => {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        if(link.textContent === 'Movies') link.classList.add('active');
+                        else link.classList.remove('active');
+                    });
+                }, 100);
+
+                                window.addEventListener('scroll', () => {
+                    const nav = document.querySelector('.premium-navbar');
+                    if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+                });
+
+                                    // Mobile Menu Toggle
+                    setTimeout(() => {
+                        const mobileBtn = document.querySelector('.mobile-toggle');
+                        const navCenter = document.querySelector('.nav-center');
+                        if(mobileBtn && navCenter) {
+                            mobileBtn.addEventListener('click', () => {
+                                navCenter.classList.toggle('mobile-active');
+                            });
+                        }
+                        
+                        // Active Link Highlight
+                        const currentUrl = window.location.pathname.split('/').pop() || 'index.html';
+                        const navLinks = document.querySelectorAll('.nav-center .nav-link');
+                        navLinks.forEach(link => {
+                            if(link.getAttribute('href') === currentUrl) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }, 200);
+            } catch (e) {
+                console.log("Error loading components");
+            }
+        }
+
+                // 3. Category Video Switching
+        function initCategoryVideos() {
+            const btns = document.querySelectorAll('.movies-filters .filter-btn');
+            const videoElement = document.getElementById('category-trailer');
+            
+            btns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    // Update active class
+                    btns.forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    // Update video source
+                    const newVideoSrc = e.target.getAttribute('data-video');
+                    if(newVideoSrc) {
+                        videoElement.src = newVideoSrc;
+                        videoElement.play().catch(err => console.log('Autoplay prevented:', err));
+                    }
+                });
+            });
+        }
+
+        // 2. Render Sliders
+        const categories = [
+            "Hollywood Blockbusters", "Bollywood Hits", "Kollywood (Tamil)", 
+            "Tollywood (Telugu)", "Action & Adventure", "Comedy", "Sci-Fi & Fantasy", 
+            "Horror", "Romance", "Crime Thrillers", "Korean Dramas"
+        ];
+        
+        const imageDB = {
+            "Hollywood Blockbusters": [
+                "./images/hollywood.webp", "./images/hollywood1.webp", "./images/hollywood2.webp", "./images/hollywood3.webp", "./images/hollywood10.webp"
+            ],
+            "Bollywood Hits": [
+                "./images/hollywood4.webp", "./images/hollywood5.webp", "./images/hollywood6.webp", "./images/hollywood7.webp", "./images/hollywood8.webp"
+            ],
+            "Kollywood (Tamil)": [
+                "./images/tamil.webp", "./images/tamil1.webp", "./images/tamil2.webp", "./images/tamil3.webp", "./images/tamil4.webp"
+            ],
+            "Tollywood (Telugu)": [
+                "./images/tamil5.webp", "./images/tamil6.webp", "./images/tamil7.webp", "./images/tamil8.webp", "./images/tamil9.webp"
+            ],
+            "Action & Adventure": [
+                "./images/hollywood8.webp", "./images/tamil9.webp", "./images/horror.webp", "./images/hollywood1.webp"
+            ],
+            "Comedy": [
+                "./images/comedy.webp", "./images/comedy1.webp", "./images/comedy2.webp", "./images/comedy3.webp", "./images/comedy4.webp"
+            ],
+            "Sci-Fi & Fantasy": [
+                "./images/hollywood9.webp", "./images/tamil10.webp", "./images/hollywood10.webp"
+            ],
+            "Horror": [
+                "./images/horror1.webp", "./images/horror2.webp", "./images/horror3.webp", "./images/horror4.webp", "./images/horror5.webp"
+            ],
+            "Romance": [
+                "./images/tamil.webp", "./images/comedy5.webp", "./images/hollywood.webp"
+            ],
+            "Crime Thrillers": [
+                "./images/horror6.webp", "./images/horror7.webp", "./images/horror8.webp", "./images/horror9.webp"
+            ],
+            "Korean Dramas": [
+                "./images/comedy6.webp", "./images/hollywood2.webp", "./images/tamil2.webp"
+            ]
+        };
+
+        const fallbackImages = ["./images/hero_bg.webp"];
+
+        function generateCard(index, category) {
+            let activePosters = imageDB[category] || fallbackImages;
+            let tag = category;
+            
+            const poster = activePosters[index % activePosters.length];
+            return `
+                <div class="movie-card extended-card">
+                    <img src="${poster}" alt="Movie Poster" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=500'">
+                    
+                    <div class="card-overlay extended-overlay">
+                        <h4 class="card-title">Premium Movie ${index + 1}</h4>
+                        
+                        <div class="card-meta">
+                            <span class="imdb-rating"><i class="fa-solid fa-star"></i> 8.${index%9}</span>
+                            <span>202${index%6}</span>
+                            <span>2h ${15 + (index%30)}m</span>
+                        </div>
+                        
+                        <div class="card-tags">
+                            <span class="card-tag">${tag}</span>
+                            <span class="card-tag">English</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <a href="404.html" class="card-btn primary" style="text-decoration: none;"><i class="fa-solid fa-play"></i> Watch</a>
+                            <a href="404.html" class="card-btn secondary" style="text-decoration: none;"><i class="fa-solid fa-film"></i> Trailer</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSliders() {
+            const container = document.getElementById('sliders-container');
+            let html = '';
+            
+            categories.forEach(cat => {
+                let cardsHtml = '';
+                for(let i=0; i<10; i++) cardsHtml += generateCard(i, cat);
+                
+                html += `
+                    <section class="slider-section">
+                        <h2 class="section-title">${cat}</h2>
+                        <div class="slider-wrapper">
+                            <button class="slider-control prev"><i class="fa-solid fa-chevron-left"></i></button>
+                            <div class="slider-track">
+                                ${cardsHtml}
+                            </div>
+                            <button class="slider-control next"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </section>
+                `;
+            });
+            container.innerHTML = html;
+            initSliderControls();
+        }
+
+        function initSliderControls() {
+            document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
+                const track = wrapper.querySelector('.slider-track');
+                const prev = wrapper.querySelector('.prev');
+                const next = wrapper.querySelector('.next');
+                
+                const scrollAmount = 800;
+                
+                next.addEventListener('click', () => {
+                    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                });
+                
+                prev.addEventListener('click', () => {
+                    track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadComponents();
+            renderSliders();
+            initCategoryVideos();
+        });
+    </script>
+</body>
+</html>

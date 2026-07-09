@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/user_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+<body>
+    <main class="dashboard-container">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar slide-up">
+            <div class="sidebar-brand">
+                <img src="images/logo.webp" alt="STACKLY" style="height: 55px; width: auto; object-fit: contain;">
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="user_dashboard.html" ><i class="fa-solid fa-house"></i> Overview</a></li>
+                <li><a href="user_watch_history.html"><i class="fa-solid fa-clock-rotate-left"></i> Watch History</a></li>
+                <li><a href="user_my_list.html"><i class="fa-solid fa-list"></i> My List</a></li>
+                <li><a href="user_subscription.html"><i class="fa-solid fa-credit-card"></i> Subscription</a></li>
+                <li><a href="user_settings.html" class="active"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-main-wrapper">
+            <!-- Dashboard Top Navbar -->
+            <header class="dashboard-topbar">
+                <button class="mobile-sidebar-btn" id="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                <div class="topbar-welcome">
+                    <h2 style="font-size: 1.2rem; font-weight: 600; margin: 0;">Welcome back, User!</h2>
+                </div>
+                <div class="topbar-actions">
+                    <span id="display-email" style="color: white; font-weight: 600;">user@example.com</span>
+                    <a href="index.html" class="btn-action" style="text-decoration: none; display: flex; align-items: center; gap: 8px;" onclick="localStorage.removeItem('userEmail')">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                    </a>
+                </div>
+            </header>
+
+            <section class="dashboard-content fade-in">
+                <div class="dashboard-header">
+                <h1 class="dashboard-title">Account Settings</h1>
+                <p class="dashboard-subtitle">Manage your preferences</p>
+            </div>
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <h3>Profile Information</h3>
+                        <div class="form-row">
+                            <div class="form-group-dash">
+                                <label>First Name</label>
+                                <input type="text" value="John">
+                            </div>
+                            <div class="form-group-dash">
+                                <label>Last Name</label>
+                                <input type="text" value="Doe">
+                            </div>
+                        </div>
+                        <div class="form-group-dash" style="margin-bottom: 20px;">
+                            <label>Email Address</label>
+                            <input type="email" value="user@example.com" disabled style="opacity: 0.6; cursor: not-allowed;">
+                        </div>
+                        <button class="btn-save" style="margin-top: 10px;">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                        </button>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Notifications</h3>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <h4>New Releases</h4>
+                                <p>Get notified when a new movie or show is added.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <h4>Continue Watching</h4>
+                                <p>Reminders to finish what you started.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <div class="toggle-info">
+                                <h4>Billing Alerts</h4>
+                                <p>Receive updates about your subscription.</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section" style="border-color: rgba(239, 68, 68, 0.3);">
+                        <h3 style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);">Danger Zone</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 15px;">Once you delete your account, there is no going back. Please be certain.</p>
+                        <button class="btn-danger" style="margin-top: 0;">Delete Account</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const email = localStorage.getItem('userEmail') || 'user@example.com';
+            document.getElementById('display-email').textContent = email;
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.dashboard-sidebar');
+            const toggleBtn = document.getElementById('mobile-sidebar-toggle');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if(toggleBtn && sidebar && overlay) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                });
+
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

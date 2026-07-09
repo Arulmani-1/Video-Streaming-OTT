@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+<body>
+
+    <main class="login-split-main">
+        <!-- Left Side: Cinematic Branding -->
+        <div class="login-left">
+            <video autoplay loop muted playsinline class="login-bg-video">
+                <source src="videos/video4.mp4" type="video/mp4">
+            </video>
+            <div class="login-left-overlay"></div>
+            <div class="login-left-content fade-in">
+                <img src="images/logo.webp" alt="STACKLY Logo" class="login-brand-logo">
+                <h1 class="left-title">Welcome back!</h1>
+                <p class="left-subtitle">Access your dashboard and manage your cinematic journey.</p>
+                <a href="home.html" class="btn-back-home"><i class="fa-solid fa-arrow-left"></i> BACK TO HOME</a>
+            </div>
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="login-right">
+            <div class="login-right-container slide-up">
+                <div class="login-header-text">
+                    <h2>Login to your account</h2>
+                    <p>Don't have an account? <a href="signup.html" class="highlight-link">Sign Up</a></p>
+                </div>
+
+                <form class="login-form" onsubmit="event.preventDefault(); const role = document.getElementById('role-select').value; const email = document.getElementById('login-email').value; localStorage.setItem('userEmail', email); if(role === 'admin') window.location.href='admin_dashboard.html'; else window.location.href='user_dashboard.html';">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Login as</label>
+                        <div class="select-wrapper">
+                            <select class="form-input custom-select" id="role-select" required>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="login-email" class="form-input" placeholder="Enter Your Email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" class="form-input" placeholder="Enter Password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="404.html" class="forgot-password">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn-login-submit">
+                        LOGIN
+                    </button>
+                </form>
+
+                <div class="login-divider">
+                    <span>Or create with</span>
+                </div>
+
+                <div class="social-login-group">
+                    <button type="button" class="btn-social-login" onclick="window.location.href='404.html'">
+                        <i class="fa-brands fa-facebook"></i> Facebook
+                    </button>
+                    <button type="button" class="btn-social-login" onclick="window.location.href='404.html'">
+                        <i class="fa-brands fa-google"></i> Google
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // No navbar/footer injection needed for the new login layout
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/404.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+<body>
+    <div id="navbar-container"></div>
+
+    <main class="error-page-main">
+        <div class="error-bg"></div>
+        <div class="error-particles"></div>
+
+        <div class="error-content slide-up">
+            <div class="error-code">404</div>
+            <h2 class="error-title" style="color: white; font-size: 2.5rem; font-weight: 700; margin-top: 20px; display: block; opacity: 1;">Page Not Found</h2>
+            <p class="error-desc">The page or movie you are looking for does not exist, has been removed, or is temporarily unavailable.</p>
+            
+            <div class="error-actions">
+                <a href="javascript:history.back()" class="btn-search"><i class="fa-solid fa-arrow-left"></i> Go Back</a>
+                <a href="home.html" class="btn-home"><i class="fa-solid fa-house"></i> Go To Home</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer normally wouldn't be fixed on a 100vh page, so we only include navbar for cleaner look, but we'll include it per instructions -->
+    <div id="footer-container" style="position: relative; z-index: 10;"></div>
+
+    <script>
+        async function loadComponents() {
+            try {
+                // Check if user came from a dashboard page
+                const referrer = document.referrer.toLowerCase();
+                const isFromDashboard = referrer.includes('user_') || referrer.includes('admin_');
+
+                // Only load navbar and footer if NOT coming from a dashboard
+                if (!isFromDashboard) {
+                    const navRes = await fetch('navbar.html');
+                    if(navRes.ok) document.getElementById('navbar-container').innerHTML = await navRes.text();
+                    
+                    const footRes = await fetch('footer.html');
+                    if(footRes.ok) document.getElementById('footer-container').innerHTML = await footRes.text();
+
+                    window.addEventListener('scroll', () => {
+                        const nav = document.querySelector('.premium-navbar');
+                        if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+                    });
+
+                    // Mobile Menu Toggle
+                    setTimeout(() => {
+                        const mobileBtn = document.querySelector('.mobile-toggle');
+                        const navCenter = document.querySelector('.nav-center');
+                        if(mobileBtn && navCenter) {
+                            mobileBtn.addEventListener('click', () => {
+                                navCenter.classList.toggle('mobile-active');
+                            });
+                        }
+                        
+                        // Active Link Highlight
+                        const currentUrl = window.location.pathname.split('/').pop() || 'index.html';
+                        const navLinks = document.querySelectorAll('.nav-center .nav-link');
+                        navLinks.forEach(link => {
+                            if(link.getAttribute('href') === currentUrl) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }, 200);
+                }
+            } catch (e) {
+                console.log("Error loading components");
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadComponents);
+    </script>
+</body>
+</html>

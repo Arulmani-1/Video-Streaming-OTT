@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACKLY STREAM - Premium OTT Platform</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+
+<body>
+    <!-- Inject Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <!-- Hero Section -->
+        <section class="hero-section fade-in">
+            <!-- Background Carousel -->
+            <div class="hero-bg-slider" id="hero-bg-slider">
+                <div class="bg-slide active"><video autoplay loop muted playsinline class="hero-video" poster="images/hero_bg.webp">
+                        <source src="videos/video3.mp4" type="video/mp4">
+                    </video></div>
+                <div class="bg-slide" style="background-image: url('images/hollywood2.webp');"></div>
+                <div class="bg-slide" style="background-image: url('images/hollywood3.webp');"></div>
+                <div class="hero-gradient"></div>
+            </div>
+
+            <div class="hero-content slide-up">
+                <h1 class="hero-title" style="text-transform: none; font-weight: 600; letter-spacing: -1px;">Game Of
+                    Throne</h1>
+
+                <div class="hero-meta" style="color: #ccc; font-weight: 400; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    <span>2025 . 2h 45m . multi language . sci-fi/adventure</span>
+                </div>
+
+                <p class="hero-desc" style="max-width: 500px; font-size: 0.85rem; line-height: 1.6; color: #ddd;">The
+                    Journey From The Vibrant Souks And Palaces Of Marrakech To The Tranquil, Starlit Sands Of Merzouga
+                    Showcases The Diverse Splendor Of Morocco. Camel Treks A</p>
+
+                <div class="hero-actions" style="margin-top: 2rem; gap: 25px;">
+                    <button class="btn"
+                        style="background: #9333ea; color: white; border-radius: 30px; font-size: 0.85rem; padding: 0.7rem 1.8rem; font-weight: 600;">+
+                        Add To List</button>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <button class="btn-icon"
+                            style="border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: #a855f7; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;"><i
+                                class="fa-solid fa-play" style="margin-left: 3px;"></i></button>
+                        <span style="font-weight: 500; font-size: 1rem;">02h 45m</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vertical Text -->
+            <div class="vertical-text"
+                style="position: absolute; right: 2%; top: 50%; transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl; font-size: 5rem; font-family: var(--font-heading); font-weight: 800; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.1); text-transform: uppercase; letter-spacing: 5px; pointer-events: none; z-index: 2;">
+                4k Quality</div>
+
+            <!-- Thumbnail Slider -->
+            <div class="hero-thumbs fade-in" id="hero-thumbs" style="z-index: 5;">
+                <div class="thumb active" onclick="setSlide(0)"><img src="images/hero_bg.webp" alt="Scene 1"></div>
+                <div class="thumb" onclick="setSlide(1)"><img src="images/hollywood2.webp" alt="Scene 2"></div>
+                <div class="thumb" onclick="setSlide(2)"><img src="images/hollywood3.webp" alt="Scene 3"></div>
+            </div>
+        </section>
+
+        <!-- Dynamic Sliders Container -->
+        <div id="sliders-container" class="slide-up">
+            <!-- JavaScript will inject sliders here -->
+        </div>
+    </main>
+
+    <!-- Inject Footer -->
+    <div id="footer-container"></div>
+
+    <!-- Vanilla JS logic -->
+    <script>
+        // 1. Inject Navbar & Footer
+        async function loadComponents() {
+            try {
+                const navRes = await fetch('navbar.html');
+                if (navRes.ok) document.getElementById('navbar-container').innerHTML = await navRes.text();
+
+                const footRes = await fetch('footer.html');
+                if (footRes.ok) document.getElementById('footer-container').innerHTML = await footRes.text();
+
+                // Navbar scroll effect
+                window.addEventListener('scroll', () => {
+                    const nav = document.querySelector('.premium-navbar');
+                    if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+                });
+
+                // Mobile Menu Toggle
+                setTimeout(() => {
+                    const mobileBtn = document.querySelector('.mobile-toggle');
+                    const navCenter = document.querySelector('.nav-center');
+                    if (mobileBtn && navCenter) {
+                        mobileBtn.addEventListener('click', () => {
+                            navCenter.classList.toggle('mobile-active');
+                        });
+                    }
+
+                    // Active Link Highlight
+                    const currentUrl = window.location.pathname.split('/').pop() || 'index.html';
+                    const navLinks = document.querySelectorAll('.nav-center .nav-link');
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === currentUrl) {
+                            link.classList.add('active');
+                        }
+                    });
+                }, 200);
+            } catch (e) {
+                console.log("Error loading components (might be due to CORS on file:// protocol)");
+            }
+        }
+
+        // 2. Mock Data & Render Sliders
+        const categories = [
+            "Trending Now", "New Releases", "Top Rated", "Recently Added",
+            "Popular Movies", "Popular TV Shows", "Live TV Highlights",
+            "Action", "Comedy", "Sci-Fi", "Tamil Movies", "Upcoming Movies"
+        ];
+
+        const posters = [
+            "images/poster1.webp", "images/poster2.webp", "images/poster3.webp",
+            "images/poster4.webp", "images/poster5.webp", "images/poster6.webp"
+        ]; // Using placeholders
+
+        function generateCard(index) {
+            const poster = posters[index % posters.length];
+            return `
+                <div class="movie-card">
+                    <img src="${poster}" alt="Movie Poster" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=500'">
+                    <div class="play-btn-overlay"><i class="fa-solid fa-play"></i></div>
+                    <div class="card-overlay">
+                        <div class="card-meta">
+                            <span class="imdb-rating"><i class="fa-solid fa-star"></i> 8.${index % 9}</span>
+                            <span>202${index % 6}</span>
+                        </div>
+                        <h4 class="card-title">Premium Title ${index + 1}</h4>
+                        <div class="card-tags">
+                            <span class="card-tag">Action</span>
+                            <span class="card-tag">4K</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSliders() {
+            const container = document.getElementById('sliders-container');
+            let html = '';
+
+            categories.forEach(cat => {
+                let cardsHtml = '';
+                for (let i = 0; i < 10; i++) cardsHtml += generateCard(i);
+
+                html += `
+                    <section class="slider-section">
+                        <h2 class="section-title">${cat}</h2>
+                        <div class="slider-wrapper">
+                            <button class="slider-control prev"><i class="fa-solid fa-chevron-left"></i></button>
+                            <div class="slider-track">
+                                ${cardsHtml}
+                            </div>
+                            <button class="slider-control next"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </section>
+                `;
+            });
+            container.innerHTML = html;
+            initSliderControls();
+        }
+
+        function initSliderControls() {
+            document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
+                const track = wrapper.querySelector('.slider-track');
+                const prev = wrapper.querySelector('.prev');
+                const next = wrapper.querySelector('.next');
+
+                const scrollAmount = 800;
+
+                next.addEventListener('click', () => {
+                    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                });
+
+                prev.addEventListener('click', () => {
+                    track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                });
+            });
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            loadComponents();
+            renderSliders();
+        });
+    </script>
+    <script>
+        let currentSlide = 0;
+        let slideInterval;
+
+        function setSlide(index) {
+            const slides = document.querySelectorAll('.bg-slide');
+            const thumbs = document.querySelectorAll('.hero-thumbs .thumb');
+
+            if (!slides.length) return;
+
+            slides.forEach(s => s.classList.remove('active'));
+            thumbs.forEach(t => t.classList.remove('active'));
+
+            slides[index].classList.add('active');
+            thumbs[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            const slides = document.querySelectorAll('.bg-slide');
+            if (!slides.length) return;
+            currentSlide = (currentSlide + 1) % slides.length;
+            setSlide(currentSlide);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.bg-slide');
+            if (slides.length > 0) {
+                slideInterval = setInterval(nextSlide, 5000);
+
+                // Pause on hover
+                const heroThumbs = document.getElementById('hero-thumbs');
+                if (heroThumbs) {
+                    heroThumbs.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                    heroThumbs.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 5000));
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

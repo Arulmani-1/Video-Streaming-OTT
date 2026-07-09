@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/admin_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+
+<body>
+    <main class="dashboard-container">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar slide-up">
+            <div class="sidebar-brand">
+                <img src="images/logo.webp" alt="STACKLY" style="height: 55px; width: auto; object-fit: contain;">
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="admin_dashboard.html" class="active"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+                </li>
+                <li><a href="admin_manage_users.html"><i class="fa-solid fa-users"></i> Manage Users</a></li>
+                <li><a href="admin_content_library.html"><i class="fa-solid fa-film"></i> Content Library</a></li>
+                <li><a href="admin_revenue.html"><i class="fa-solid fa-money-bill-trend-up"></i> Revenue</a></li>
+                <li><a href="admin_settings.html"><i class="fa-solid fa-gear"></i> System Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-main-wrapper">
+            <!-- Dashboard Top Navbar -->
+            <header class="dashboard-topbar">
+                <button class="mobile-sidebar-btn" id="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                <div class="topbar-welcome">
+                    <h2 style="margin: 0; font-size: 1.2rem; font-weight: 600; color: white;">Welcome back, Admin!</h2>
+                </div>
+                <div class="topbar-actions">
+                    <span id="display-email" style="color: white; font-weight: 600;">admin@example.com</span>
+                    <a href="home.html" class="btn-action"
+                        style="text-decoration: none; display: flex; align-items: center; gap: 8px;"
+                        onclick="localStorage.removeItem('userEmail')">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                    </a>
+                </div>
+            </header>
+
+            <section class="dashboard-content fade-in">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Platform Overview</h1>
+                    <p class="dashboard-subtitle">Real-time statistics and management</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Stats Cards -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <span class="card-title">Total Users</span>
+                            <i class="fa-solid fa-users card-icon"></i>
+                        </div>
+                        <div class="stat-value">124,592</div>
+                        <div class="stat-desc"><span style="color: #10b981;"><i class="fa-solid fa-arrow-up"></i>
+                                12%</span> from last month</div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <span class="card-title">Active Subscriptions</span>
+                            <i class="fa-solid fa-credit-card card-icon"></i>
+                        </div>
+                        <div class="stat-value">89,201</div>
+                        <div class="stat-desc"><span style="color: #10b981;"><i class="fa-solid fa-arrow-up"></i>
+                                5.4%</span> from last month</div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <span class="card-title">Total Content</span>
+                            <i class="fa-solid fa-video card-icon"></i>
+                        </div>
+                        <div class="stat-value">4,821</div>
+                        <div class="stat-desc">Movies & Episodes</div>
+                    </div>
+                </div>
+
+                <!-- Recent Users Table -->
+                <div class="dashboard-card" style="margin-bottom: 2rem;">
+                    <div class="card-header" style="margin-bottom: 1.5rem;">
+                        <span class="card-title" style="font-size: 1.3rem;">Recent Registrations</span>
+                        <button class="btn-action" onclick="window.location.href='404.html'">View All</button>
+                    </div>
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Plan</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Alice Smith</td>
+                                    <td>alice@example.com</td>
+                                    <td>Premium 4K</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td><button class="btn-action"
+                                            onclick="window.location.href='404.html'">Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Bob Johnson</td>
+                                    <td>bob.j@example.com</td>
+                                    <td>Basic</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td><button class="btn-action"
+                                            onclick="window.location.href='404.html'">Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Charlie Davis</td>
+                                    <td>cdavis88@example.com</td>
+                                    <td>None</td>
+                                    <td><span class="status-badge status-inactive">Inactive</span></td>
+                                    <td><button class="btn-action"
+                                            onclick="window.location.href='404.html'">Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Diana Prince</td>
+                                    <td>diana.p@example.com</td>
+                                    <td>Premium 4K</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td><button class="btn-action"
+                                            onclick="window.location.href='404.html'">Edit</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const email = localStorage.getItem('userEmail') || 'admin@example.com';
+            document.getElementById('display-email').textContent = email;
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.dashboard-sidebar');
+            const toggleBtn = document.getElementById('mobile-sidebar-toggle');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if (toggleBtn && sidebar && overlay) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                });
+
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

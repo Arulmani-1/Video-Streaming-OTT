@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/admin_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+
+<body>
+    <main class="dashboard-container">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar slide-up">
+            <div class="sidebar-brand">
+                <img src="images/logo.webp" alt="STACKLY" style="height: 55px; width: auto; object-fit: contain;">
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="admin_dashboard.html"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+                <li><a href="admin_manage_users.html"><i class="fa-solid fa-users"></i> Manage Users</a></li>
+                <li><a href="admin_content_library.html" class="active"><i class="fa-solid fa-film"></i> Content
+                        Library</a></li>
+                <li><a href="admin_revenue.html"><i class="fa-solid fa-money-bill-trend-up"></i> Revenue</a></li>
+                <li><a href="admin_settings.html"><i class="fa-solid fa-gear"></i> System Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-main-wrapper">
+            <!-- Dashboard Top Navbar -->
+            <header class="dashboard-topbar">
+                <button class="mobile-sidebar-btn" id="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                <div class="topbar-welcome">
+                    <h2 style="margin: 0; font-size: 1.2rem; font-weight: 600; color: white;">Welcome back, Admin!</h2>
+                </div>
+                <div class="topbar-actions">
+                    <span id="display-email" style="color: white; font-weight: 600;">admin@example.com</span>
+                    <a href="index.html" class="btn-action"
+                        style="text-decoration: none; display: flex; align-items: center; gap: 8px;"
+                        onclick="localStorage.removeItem('userEmail')">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                    </a>
+                </div>
+            </header>
+
+            <section class="dashboard-content fade-in">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Content Library</h1>
+                    <p class="dashboard-subtitle">Manage movies and shows</p>
+                </div>
+                <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 20px;">
+                    <button class="btn-save" onclick="window.location.href='404.html'"><i class="fa-solid fa-upload"></i> Upload Content</button>
+                </div>
+
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px;">
+                    <div class="content-card"
+                        style="flex-direction: row; align-items: center; padding: 15px; gap: 20px; width: 420px;">
+                        <img src="./images/comedy2.webp" alt="Movie"
+                            style="width: 140px; aspect-ratio: 3/4; object-fit: cover; border-radius: 6px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                        <div style="flex: 1;">
+                            <h3
+                                style="font-size: 1.05rem; margin: 0 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                The Great Adventure</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0 0 12px 0;">Movie •
+                                2026</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.85rem; color: #10b981;"><i class="fa-solid fa-eye"></i>
+                                    1.2M</span>
+                                <div>
+                                    <button onclick="window.location.href='404.html'"
+                                        style="background: transparent; border: none; color: white; cursor: pointer; margin-right: 10px; font-size: 1rem;"><i
+                                            class="fa-solid fa-pen"></i></button>
+                                    <button onclick="window.location.href='404.html'"
+                                        style="background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 1rem;"><i
+                                            class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card"
+                        style="flex-direction: row; align-items: center; padding: 15px; gap: 20px; width: 420px;">
+                        <img src="./images/comedy5.webp" alt="Show"
+                            style="width: 140px; aspect-ratio: 3/4; object-fit: cover; border-radius: 6px; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                        <div style="flex: 1;">
+                            <h3
+                                style="font-size: 1.05rem; margin: 0 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                Space Chronicles</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0 0 12px 0;">TV Show • 3
+                                Seasons</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.85rem; color: #10b981;"><i class="fa-solid fa-eye"></i>
+                                    850K</span>
+                                <div>
+                                    <button onclick="window.location.href='404.html'"
+                                        style="background: transparent; border: none; color: white; cursor: pointer; margin-right: 10px; font-size: 1rem;"><i
+                                            class="fa-solid fa-pen"></i></button>
+                                    <button onclick="window.location.href='404.html'"
+                                        style="background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 1rem;"><i
+                                            class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const email = localStorage.getItem('userEmail') || 'admin@example.com';
+            document.getElementById('display-email').textContent = email;
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.dashboard-sidebar');
+            const toggleBtn = document.getElementById('mobile-sidebar-toggle');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if(toggleBtn && sidebar && overlay) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                });
+
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+
+</html>

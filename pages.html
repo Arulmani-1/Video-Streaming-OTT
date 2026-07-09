@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pages - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+
+    <main class="pages-main">
+        <!-- Hero Section -->
+        <section class="pages-hero fade-in">
+            <h1 class="pages-title">STACKLY Info</h1>
+            <p class="pages-subtitle">Everything you need to know about your premium membership.</p>
+        </section>
+
+        <!-- Pricing Plans -->
+        <section class="pricing-section slide-up">
+            <h2 class="section-title">Subscription Plans</h2>
+            <div class="pricing-grid">
+                <!-- Basic Plan -->
+                <div class="pricing-card">
+                    <h3>Basic</h3>
+                    <div class="price">$9<span>.99/mo</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fa-solid fa-check"></i> HD Quality (720p)</li>
+                        <li><i class="fa-solid fa-check"></i> Watch on 1 device</li>
+                        <li><i class="fa-solid fa-check"></i> Cancel anytime</li>
+                    </ul>
+                    <button class="btn-plan" onclick="window.location.href='404.html'">Select Basic</button>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="pricing-card premium">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Premium</h3>
+                    <div class="price">$15<span>.99/mo</span></div>
+                    <ul class="plan-features">
+                        <li><i class="fa-solid fa-check"></i> Ultra HD 4K + HDR</li>
+                        <li><i class="fa-solid fa-check"></i> Watch on 4 devices</li>
+                        <li><i class="fa-solid fa-check"></i> Offline downloads</li>
+                        <li><i class="fa-solid fa-check"></i> Ad-free experience</li>
+                    </ul>
+                    <button class="btn-plan btn-plan-primary" onclick="window.location.href='404.html'">Get Premium</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Grid (About, FAQ, Terms) -->
+        <section class="info-grid-section slide-up">
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fa-solid fa-circle-info info-icon"></i>
+                    <h3>About OTT</h3>
+                    <p>STACKLY STREAM is a premium entertainment platform offering thousands of hours of movies, TV
+                        shows, and exclusive originals.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fa-solid fa-file-contract info-icon"></i>
+                    <h3>Terms & Privacy</h3>
+                    <p>Read our Terms of Service and Privacy Policy to understand how we protect your data and provide a
+                        safe streaming experience.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fa-solid fa-headset info-icon"></i>
+                    <h3>Support & FAQ</h3>
+                    <p>Got questions? Visit our Help Center or check our Frequently Asked Questions for quick solutions.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script>
+        async function loadComponents() {
+            try {
+                const navRes = await fetch('navbar.html');
+                if (navRes.ok) document.getElementById('navbar-container').innerHTML = await navRes.text();
+
+                const footRes = await fetch('footer.html');
+                if (footRes.ok) document.getElementById('footer-container').innerHTML = await footRes.text();
+
+                setTimeout(() => {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        if (link.textContent === 'Pages') link.classList.add('active');
+                        else link.classList.remove('active');
+                    });
+                }, 100);
+
+                window.addEventListener('scroll', () => {
+                    const nav = document.querySelector('.premium-navbar');
+                    if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+                });
+
+                // Mobile Menu Toggle
+                setTimeout(() => {
+                    const mobileBtn = document.querySelector('.mobile-toggle');
+                    const navCenter = document.querySelector('.nav-center');
+                    if (mobileBtn && navCenter) {
+                        mobileBtn.addEventListener('click', () => {
+                            navCenter.classList.toggle('mobile-active');
+                        });
+                    }
+
+                    // Active Link Highlight
+                    const currentUrl = window.location.pathname.split('/').pop() || 'index.html';
+                    const navLinks = document.querySelectorAll('.nav-center .nav-link');
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === currentUrl) {
+                            link.classList.add('active');
+                        }
+                    });
+                }, 200);
+            } catch (e) {
+                console.log("Error loading components");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadComponents);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - STACKLY STREAM</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/user_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <script src="js/loading.js"></script>
+</head>
+<body>
+    <main class="dashboard-container">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar slide-up">
+            <div class="sidebar-brand">
+                <img src="images/logo.webp" alt="STACKLY" style="height: 55px; width: auto; object-fit: contain;">
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="user_dashboard.html" ><i class="fa-solid fa-house"></i> Overview</a></li>
+                <li><a href="user_watch_history.html"><i class="fa-solid fa-clock-rotate-left"></i> Watch History</a></li>
+                <li><a href="user_my_list.html"><i class="fa-solid fa-list"></i> My List</a></li>
+                <li><a href="user_subscription.html" class="active"><i class="fa-solid fa-credit-card"></i> Subscription</a></li>
+                <li><a href="user_settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-main-wrapper">
+            <!-- Dashboard Top Navbar -->
+            <header class="dashboard-topbar">
+                <button class="mobile-sidebar-btn" id="mobile-sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+                <div class="topbar-welcome">
+                    <h2 style="font-size: 1.2rem; font-weight: 600; margin: 0;">Welcome back, User!</h2>
+                </div>
+                <div class="topbar-actions">
+                    <span id="display-email" style="color: white; font-weight: 600;">user@example.com</span>
+                    <a href="index.html" class="btn-action" style="text-decoration: none; display: flex; align-items: center; gap: 8px;" onclick="localStorage.removeItem('userEmail')">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                    </a>
+                </div>
+            </header>
+
+            <section class="dashboard-content fade-in">
+                <div class="dashboard-header">
+                <h1 class="dashboard-title">Subscription</h1>
+                <p class="dashboard-subtitle">Manage your billing and plans</p>
+            </div>
+                <div class="subscription-container">
+                    <div class="sub-card active-plan">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h3>Premium Plan</h3>
+                            <span style="background: #10b981; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Current Plan</span>
+                        </div>
+                        <div class="sub-price">$14.99<span>/month</span></div>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Next billing date: <strong>August 15, 2026</strong></p>
+                        
+                        <ul class="sub-features">
+                            <li><i class="fa-solid fa-check"></i> 4K Ultra HD Quality</li>
+                            <li><i class="fa-solid fa-check"></i> Watch on 4 devices simultaneously</li>
+                            <li><i class="fa-solid fa-check"></i> Ad-free experience</li>
+                            <li><i class="fa-solid fa-check"></i> Unlimited downloads</li>
+                        </ul>
+                        
+                        <button class="btn-danger" style="width: 100%;">Cancel Subscription</button>
+                    </div>
+                    
+                    <div class="sub-card">
+                        <h3>Standard Plan</h3>
+                        <div class="sub-price">$9.99<span>/month</span></div>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">A great plan for individuals</p>
+                        
+                        <ul class="sub-features">
+                            <li><i class="fa-solid fa-check"></i> 1080p HD Quality</li>
+                            <li><i class="fa-solid fa-check"></i> Watch on 2 devices simultaneously</li>
+                            <li><i class="fa-solid fa-check"></i> Ad-free experience</li>
+                            <li style="opacity: 0.5;"><i class="fa-solid fa-xmark" style="color: #ef4444;"></i> No downloads</li>
+                        </ul>
+                        
+                        <button class="btn-save" style="width: 100%;">Downgrade to Standard</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const email = localStorage.getItem('userEmail') || 'user@example.com';
+            document.getElementById('display-email').textContent = email;
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.dashboard-sidebar');
+            const toggleBtn = document.getElementById('mobile-sidebar-toggle');
+            const overlay = document.getElementById('sidebar-overlay');
+
+            if(toggleBtn && sidebar && overlay) {
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                });
+
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+
+                const sidebarLinks = sidebar.querySelectorAll('a');
+                sidebarLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
