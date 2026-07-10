@@ -99,3 +99,57 @@
     z-index: 10;
     display: none;
 }
+
+/* ==================== MOBILE RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    /* Hide all extra info in mobile view except actions */
+    .extended-card .card-title,
+    .extended-card .card-meta,
+    .extended-card .card-tags {
+        display: none !important;
+    }
+    
+    /* Center the Watch button container - initially hidden */
+    .extended-card .card-actions {
+        display: flex !important;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+        margin: 0 !important;
+        opacity: 0; /* Hidden until tap */
+        visibility: hidden;
+    }
+    
+    /* Show Watch button on tap/hover */
+    .extended-card:hover .card-actions,
+    .extended-card:active .card-actions {
+        opacity: 1 !important;
+        visibility: visible;
+    }
+    
+    /* Hide the Trailer button */
+    .extended-card .card-actions .secondary {
+        display: none !important;
+    }
+    
+    /* Make the Watch button a bit more prominent for mobile */
+    .extended-card .card-actions .primary {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 6px;
+        box-shadow: 0 4px 15px rgba(2, 132, 199, 0.5);
+    }
+    
+    /* Transparent overlay initially, darken on tap */
+    .extended-card .extended-overlay {
+        background: transparent !important;
+        height: 100%;
+        justify-content: center;
+    }
+    
+    .extended-card:hover .extended-overlay,
+    .extended-card:active .extended-overlay {
+        background: rgba(3, 7, 18, 0.8) !important;
+    }
+}
